@@ -7,9 +7,12 @@ import Persons
 
 app = Flask(__name__)
 
-@app.route('/index', methods=['GET', 'POST'])
-@app.route('/', methods=['GET', 'POST'])
-def index():
+@app.route('/stepOne')
+def stepOne():
+    return render_template('temps.html')
+
+@app.route('/stepTwo', methods=['GET', 'POST'])
+def stepTwo():
     if request.method == 'POST':
         fname = request.form['fname']
         email = request.form['email']
@@ -24,9 +27,13 @@ def index():
         dbmodule.addPerson(fname, email, address, contactNo)
 
         # flash('Thank you for your cooperation!', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('stepTwo'))
     else:
         return render_template('index.html')
+
+@app.route('/')
+def startPage():
+    return render_template('startpage.html')
 
 # @app.route('/addPerson', methods=['GET', 'POST'])
 # def addPersonInfo():
