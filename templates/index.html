@@ -5,13 +5,9 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
-	<meta name="author" content="AdminKit">
-	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-
+	
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
-	
 
 	<link rel="canonical" href="https://covidTracker/" />
 
@@ -80,7 +76,28 @@
 												<input class="form-control p-2" type="text" name="datetime" id="datetime" disabled/>
 											</div>
 										</div>
-										<div class="text-center mb-2 ">
+										<label class="form-label">Are you currently experiencing any type of the following symptoms: Sore throat, Body pains, Headache, Fever?</label>
+									
+										<div class="form-check form-check-inline mb-4">
+											<input class="form-check-input" type="radio" name="symptoms" value="yes" id="flexRadioDefault1">
+											<label class="form-check-label" for="flexRadioDefault1">
+												Yes
+											</label>
+										</div>
+										<div class="form-check form-check-inline mb-4">
+											<input class="form-check-input" type="radio" name="symptoms" value="no" id="flexRadioDefault2" checked>
+											<label class="form-check-label" for="flexRadioDefault2">
+												No
+											</label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" name="symptoms" value="" id="flexCheckIndeterminate" required>
+											<label class="form-check-label" for="flexCheckIndeterminate">
+												I hereby consent to the processing of the personal data that I have provided and declare my
+											agreement with the data protection regulations in the data privacy statement.
+											</label>
+										</div>
+										<div class="text-center mt-4">
 											<a href="/" class="btn btn-lg btn-danger mx-2 px-4 py-3"><i class="align-middle" data-feather="x-circle"></i> Cancel</a>
 											<!-- <button class="btn btn-lg btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Sign in</button> -->
 											<button type="submit" class="btn btn-lg btn-success px-4 py-3"><i class="align-middle" data-feather="check-circle"></i> Submit</button>

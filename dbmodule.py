@@ -31,12 +31,12 @@ def db():
     return cnx
 
 
-def addPerson(fname, email, address, contactNo):
+def addPerson(temp, fname, email, address, contactNo, symptom):
     cnx = db()
     cursor = cnx.cursor()
 
-    query = ('INSERT INTO persons(FullName, Email, Address, ContactNum) VALUES(%s, %s, %s, %s)')
-    rowdata=(fname, email, address, contactNo)
+    query = ('INSERT INTO persons(temp, FullName, Email, Address, ContactNum, isSymptoms) VALUES(%s, %s, %s, %s, %s, %s)')
+    rowdata=(temp, fname, email, address, contactNo, symptom)
 
     #Commit to DB
     cursor.execute(query, rowdata)
@@ -46,5 +46,32 @@ def addPerson(fname, email, address, contactNo):
     cursor.close()
     cnx.close()
 
+def getEmails(now_plus, now_minus, now):
+    cnx = db()
+    cursor = cnx.cursor()
 
+    query = ('SELECT Email from persons where HOUR(DT)=%s OR HOUR(DT)=%s or HOUR(DT)=%s and DATE(DT) = DATE(CURRENT_DATE);')
+    rowdata = (now_plus, now_minus, now)
+
+    cursor.execute(query, rowdata)
+    results = cursor.fetchall()
+
+    cursor.close()
+    cnx.close()
+
+    return results
+
+# def getTemp():
+#     cnx = db()
+#     cursor = cnx.cursor()
+
+#     query = ('SELECT temperature FROM gettemp')
+    
+#     cursor.execute(query)
+#     results = cursor.fetchall()
+
+#     cursor.close()
+#     cnx.close()
+
+#     return results
 
