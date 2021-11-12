@@ -31,12 +31,12 @@ def db():
     return cnx
 
 
-def addPerson(temp, fname, email, address, contactNo, symptom):
+def addPerson(temp, fname, email, address, contactNo, symptom, messaged):
     cnx = db()
     cursor = cnx.cursor()
 
-    query = ('INSERT INTO persons(temp, FullName, Email, Address, ContactNum, isSymptoms) VALUES(%s, %s, %s, %s, %s, %s)')
-    rowdata=(temp, fname, email, address, contactNo, symptom)
+    query = ('INSERT INTO persons(temp, FullName, Email, Address, ContactNum, isSymptoms, isMessaged) VALUES(%s, %s, %s, %s, %s, %s, %s)')
+    rowdata=(temp, fname, email, address, contactNo, symptom, messaged)
 
     #Commit to DB
     cursor.execute(query, rowdata)

@@ -1,23 +1,11 @@
 from flask import Flask, render_template, flash, redirect, url_for, request, jsonify
-from flask_mail import Mail, Message
 from wtforms import Form, StringField, validators
 from wtforms.fields.core import SelectField
 from datetime import datetime, timedelta
-from apscheduler.schedulers.background import BackgroundScheduler
 import dbmodule
-import Persons
 
 app = Flask(__name__)
-scheduler = BackgroundScheduler()
 
-app.config['MAIL_SERVER']='smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'rimandoarvi@gmail.com'
-app.config['MAIL_PASSWORD'] = 'vrcanqjggbyyllne'
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-
-mail = Mail(app)
 
 @app.route('/stepOne', methods=['GET','POST'])
 def stepOne():
@@ -40,12 +28,12 @@ def stepTwo():
         city = request.form['city']
         province = request.form['province']
         symptom = request.form['symptoms']
-
+        messaged = 'no'
         address = brgy + ", " + city + ", " + province
         # address = form.address.data
         contactNo = request.form['contactNo']
 
-        dbmodule.addPerson(temp, fname, email, address, contactNo,symptom)
+        dbmodule.addPerson(temp, fname, email, address, contactNo,symptom, messaged)
         
         # flash('Thank you for your cooperation!', 'success')
         
@@ -89,19 +77,6 @@ def thankyou():
 #     print(type(msg.recipients))
 #     return render_template('test.html', len = len(email) ,email = email)
 
-def send_mail():
-    now = datetime.now()
-    now_minus = now - timedelta(hours = 1)
-    now_plus = now + timedelta(hours = 1)
-    recipient = dbmodule.getEmails(now_plus.hour, now_minus.hour, now.hour)
-
-    for recipient in recipient:
-        print(recipient[0])
-        msg = Message('Hello from the other side!', sender = 'test@mail.io')
-        msg.recipients = [recipient[0]]
-        msg.body = "Hey Paul, sending you this email from my Flask app, lmk if it works"
-        mail.send(msg)
-
 # @app.route('/addPerson', methods=['GET', 'POST'])
 # def addPersonInfo():
 #     addPerson = Persons.addPerson()
@@ -109,5 +84,4 @@ def send_mail():
 
 if __name__ == '__main__':
     app.secret_key = "abc" 
-    scheduler.start() 
     app.run(debug=True)
