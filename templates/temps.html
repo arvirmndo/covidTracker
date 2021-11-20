@@ -151,10 +151,20 @@
 					data:{query:query},
 					success:function(data)
 					{
+						
+
 						var trimStr = $.trim(data.htmlresponse);
 						$("#h_temp").val(trimStr);
 						$('#result').html(data);
 						$("#result").append(data.htmlresponse);
+						
+						if(parseFloat(trimStr) > 37){
+							$("#next").hide();
+						}else{
+							$("#next").show();
+						}
+						$("#loading").hide();
+						$("#scan").hide();
 						
 					}
 				});
@@ -167,9 +177,6 @@
 
 				setTimeout(function() {
 					//your code to be executed after 5 second
-					$("#loading").hide();
-					$("#scan").hide();
-					$("#next").show();
 					load_data();
 					
 				}, delayInMilliseconds);
@@ -203,6 +210,9 @@
 							<div class="text-center">
 								<button type="submit" class="btn btn-lg btn-primary mt-4" id="next">Next</button>
 							</div>
+							<!-- <div class="text-center">
+								<button type="submit" class="btn btn-lg btn-primary mt-4" id="try">Try Again</button>
+							</div> -->
 						</form>
 							<div class="text-center">
 								<button class="btn btn-lg btn-success mt-2" id="start">Start</button>

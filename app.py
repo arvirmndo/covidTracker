@@ -84,4 +84,4 @@ def thankyou():
 
 if __name__ == '__main__':
     app.secret_key = "abc" 
-    app.run(debug=True)
+    app.run(host='192.168.1.35', port=5000, debug=True, threaded=False)
