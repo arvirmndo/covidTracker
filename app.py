@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, redirect, url_for, request, jsonify
+from flask import Flask, render_template, flash, redirect, url_for, request, jsonify, session
 from wtforms import Form, StringField, validators
 from wtforms.fields.core import SelectField
 from datetime import datetime, timedelta
@@ -7,39 +7,50 @@ import dbmodule
 app = Flask(__name__)
 
 
-@app.route('/stepOne', methods=['GET','POST'])
-def stepOne():
+@app.route('/stepTwo', methods=['GET','POST'])
+def stepTwo():
     # results = dbmodule.getTemp()
     # temperature = results[0]
+    
     if request.method == 'POST':
-        h_temp = request.form['h_temp']
-        
-        return redirect(url_for('stepTwo',  h_temp =  h_temp))
+        temp = request.form['h_temp']
+        fname = request.args.get('fname')
+        email = request.args.get('email')
+        symptom = request.args.get('symptom')
+        messaged = request.args.get('messaged')
+        address = request.args.get('address')
+        # address = form.address.data
+        contactNo = request.args.get('contactNo')
+
+        dbmodule.addPerson(temp, fname, email, address, contactNo,symptom, messaged)
+
+        return redirect(url_for('thankyou'))
     else:
         return render_template('temps.html')
 
-@app.route('/stepTwo', methods=['GET', 'POST'])
-def stepTwo():
+@app.route('/stepOne', methods=['GET','POST'])
+def stepOne():
     if request.method == 'POST':
-        temp = request.args.get('h_temp')
+        # temp = request.args.get('h_temp')
         fname = request.form['fname']
-        email = request.form['email']
-        brgy = request.form['barangay']
-        city = request.form['city']
-        province = request.form['province']
-        symptom = request.form['symptoms']
+        email = request.form.get('email', None)
+        brgy = request.form.get('barangay', None)
+        city = request.form.get('city',None)
+        province = request.form.get('province', None)
+        symptom = request.form.get('symptoms', None)
         messaged = 'no'
         address = brgy + ", " + city + ", " + province
         # address = form.address.data
-        contactNo = request.form['contactNo']
+        contactNo = request.form.get('contactNo', None)
 
-        dbmodule.addPerson(temp, fname, email, address, contactNo,symptom, messaged)
+        # dbmodule.addPerson(temp, fname, email, address, contactNo,symptom, messaged)
         
         # flash('Thank you for your cooperation!', 'success')
         
-        return redirect(url_for('thankyou'))
+        return redirect(url_for('stepTwo', fname = fname, email = email, address=address, symptom=symptom, messaged=messaged, contactNo=contactNo))
     else:
         return render_template('index.html')
+
 
 @app.route('/')
 def startPage():
