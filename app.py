@@ -1,7 +1,4 @@
 from flask import Flask, render_template, flash, redirect, url_for, request, jsonify, session
-from wtforms import Form, StringField, validators
-from wtforms.fields.core import SelectField
-from datetime import datetime, timedelta
 import dbmodule
 
 app = Flask(__name__)
