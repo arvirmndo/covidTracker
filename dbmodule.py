@@ -46,20 +46,20 @@ def addPerson(temp, fname, email, address, contactNo, symptom, messaged):
     cursor.close()
     cnx.close()
 
-def getEmails(now_plus, now_minus, now):
-    cnx = db()
-    cursor = cnx.cursor()
+# def getEmails(now_plus, now_minus, now):
+#     cnx = db()
+#     cursor = cnx.cursor()
 
-    query = ('SELECT Email from persons where HOUR(DT)=%s OR HOUR(DT)=%s or HOUR(DT)=%s and DATE(DT) = DATE(CURRENT_DATE);')
-    rowdata = (now_plus, now_minus, now)
+#     query = ('SELECT Email from persons where HOUR(DT)=%s OR HOUR(DT)=%s or HOUR(DT)=%s and DATE(DT) = DATE(CURRENT_DATE);')
+#     rowdata = (now_plus, now_minus, now)
 
-    cursor.execute(query, rowdata)
-    results = cursor.fetchall()
+#     cursor.execute(query, rowdata)
+#     results = cursor.fetchall()
 
-    cursor.close()
-    cnx.close()
+#     cursor.close()
+#     cnx.close()
 
-    return results
+#     return results
 
 # def getTemp():
 #     cnx = db()

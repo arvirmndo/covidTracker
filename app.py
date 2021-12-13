@@ -3,7 +3,7 @@ import dbmodule
 
 app = Flask(__name__)
 
-
+#third page
 @app.route('/stepTwo', methods=['GET','POST'])
 def stepTwo():
     # results = dbmodule.getTemp()
@@ -25,6 +25,7 @@ def stepTwo():
     else:
         return render_template('temps.html')
 
+#second page
 @app.route('/stepOne', methods=['GET','POST'])
 def stepOne():
     if request.method == 'POST':
@@ -48,11 +49,12 @@ def stepOne():
     else:
         return render_template('index.html')
 
-
+# first page (home)
 @app.route('/')
 def startPage():
     return render_template('startpage.html')
 
+#to get temps for step 2
 @app.route("/ajaxlivesearch",methods=["POST","GET"])
 def ajaxlivesearch():
     
@@ -69,6 +71,7 @@ def ajaxlivesearch():
         
     return jsonify({'htmlresponse': render_template('response.html', temperature = temperature)})
 
+#last page
 @app.route("/thankyou")
 def thankyou():
     return render_template('thankyou.html')
